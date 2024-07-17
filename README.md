@@ -1,4 +1,5 @@
 === Custom User Registration and Login Plugin ===
+
 Contributors: Jayesh Solanki
 Tags: user registration, login form, custom roles, user meta
 Requires at least: 5.0
