@@ -1,0 +1,19 @@
+#cup_registration_form label,
+#cup_login_form label,
+.registration-message {
+  font-size: 14px;
+  font-family: sans-serif;
+  font-weight: 500;
+}
+
+#cup_registration_form label.error,
+#cup_login_form label.error,
+.registration-message.error,
+.login-message.error {
+  color: red;
+}
+
+.registration-message.success,
+.login-message.success {
+  color: green;
+}
