@@ -5,11 +5,11 @@
  * Version: 1.0.0
  * Author: Jayesh Solanki
  * Text Domain: cup
-*/
+ */
 
 // Exit if accessed directly.
-if(!defined('ABSPATH')){
-    exit; 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
 }
 
 // Define plugin constants.
@@ -18,7 +18,7 @@ define( 'CUP_PLUGIN_FILE', __FILE__ );
 define( 'CUP_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'CUP_PLUGIN_URL', plugins_url( '/', __FILE__ ) );
 
-// Include required files. 
+// Include required files.
 require_once CUP_PLUGIN_DIR . 'admin/class-admin-settings.php';
 require_once CUP_PLUGIN_DIR . 'inc/class-user-assets.php';
 require_once CUP_PLUGIN_DIR . 'inc/class-user-shortcodes.php';
@@ -27,13 +27,13 @@ require_once CUP_PLUGIN_DIR . 'inc/class-user-login.php';
 require_once CUP_PLUGIN_DIR . 'inc/class-user-welcome.php';
 
 // Initialize the plugin.
-function cup_init(){
-    new Admin_Settings();
-    new User_Assets();
-    new User_Shortocde();
-    new User_Registration();
-    new User_Login();
-    new User_Welcome();
+function cup_init() {
+	new Admin_Settings();
+	new User_Assets();
+	new User_Shortocde();
+	new User_Registration();
+	new User_Login();
+	new User_Welcome();
 }
 add_action( 'plugins_loaded', 'cup_init' );
 
