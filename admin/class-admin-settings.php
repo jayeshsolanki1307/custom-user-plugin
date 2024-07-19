@@ -1,5 +1,13 @@
 <?php
-// Exit if accessed directly.
+/**
+ * Admin Menu Page.
+ *
+ * @package cup
+ */
+
+/**
+ * Exit if accessed directly.
+ */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -9,10 +17,16 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class Admin_Settings {
 
+	/**
+	 * Admin_Settings constructor.
+	 */
 	public function __construct() {
 		add_action( 'admin_menu', array( $this, 'cup_add_admin_menu_page' ) );
 	}
 
+	/**
+	 * Admin menu page callback.
+	 */
 	public function cup_add_admin_menu_page() {
 		add_menu_page(
 			__( 'Custom User Plugin', 'cup' ),
@@ -25,6 +39,9 @@ class Admin_Settings {
 		);
 	}
 
+	/**
+	 * Display menu page callback.
+	 */
 	public function cup_display_menu_page() {
 		?>
 		<div class="wrap">

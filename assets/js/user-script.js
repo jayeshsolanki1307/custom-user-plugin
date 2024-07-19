@@ -1,5 +1,7 @@
 /**
  * User Registration and Login Script
+ *
+ * @package cup
  */
 
 (function ($) {
