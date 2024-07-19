@@ -1,11 +1,19 @@
 <?php
-// Exit if accessed directly.
+/**
+ * Create a welcome page on activation and delete page and delete user which has cup_user role.
+ *
+ * @package cup
+ */
+
+/**
+ * Exit if accessed directly.
+ */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
 /**
- * Create a User_Welcome
+ * Create a User_Welcome class.
  */
 class User_Welcome {
 
@@ -30,7 +38,7 @@ class User_Welcome {
 	}
 
 	/**
-	 * Remove welcome page callback on deactivation.
+	 * Delete welcome page callback on deactivation.
 	 */
 	public static function cup_remove_welcome_page() {
 		// Find the welcome page.
@@ -41,10 +49,10 @@ class User_Welcome {
 			wp_delete_post( $page->ID, true );
 		}
 
-		// Get all users with the CUP User role
+		// Get all users with the CUP User role.
 		$cup_users = get_users( array( 'role' => 'cup_user' ) );
 
-		// Loop through each user and delete them
+		// Loop through each user and delete them.
 		foreach ( $cup_users as $user ) {
 			wp_delete_user( $user->ID );
 		}

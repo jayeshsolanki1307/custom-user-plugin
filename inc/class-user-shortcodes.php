@@ -1,14 +1,26 @@
 <?php
-// Exit if accessed directly.
+/**
+ * Create a shortcodes for registration and login forms.
+ *
+ * @package cup
+ */
+
+/**
+ * Exit if accessed directly.
+ */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
 /**
- * Create a User_Shortocde class.
+ * Create a User_Shortcodes class.
  */
-class User_Shortocde {
+class User_Shortcodes {
 
+	/**
+	 * User_Shortcodes constructor.
+	 */
 	public function __construct() {
 		// Hook to create user registration form shortcode.
 		add_shortcode( 'cup_registration_form', array( $this, 'cup_registration_form' ) );

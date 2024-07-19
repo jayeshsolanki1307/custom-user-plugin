@@ -2,12 +2,19 @@
 /**
  * Plugin Name: Custom User Plugin
  * Description: A custom plugin for user registration and login.
- * Version: 1.0.0
  * Author: Jayesh Solanki
+ * Version: 1.0.0
+ * License: GPL3+
+ * License URI: http://www.gnu.org/licenses/gpl-3.0.txt
  * Text Domain: cup
+ * Domain Path: /languages
+ *
+ * @package    CustomUserPlugin
  */
 
-// Exit if accessed directly.
+/**
+ * Exit if accessed directly.
+ */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -26,11 +33,13 @@ require_once CUP_PLUGIN_DIR . 'inc/class-user-registration.php';
 require_once CUP_PLUGIN_DIR . 'inc/class-user-login.php';
 require_once CUP_PLUGIN_DIR . 'inc/class-user-welcome.php';
 
-// Initialize the plugin.
+/**
+ * Initialize the plugin.
+ */
 function cup_init() {
 	new Admin_Settings();
 	new User_Assets();
-	new User_Shortocde();
+	new User_Shortcodes();
 	new User_Registration();
 	new User_Login();
 	new User_Welcome();

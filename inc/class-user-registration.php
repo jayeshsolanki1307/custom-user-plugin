@@ -1,5 +1,13 @@
 <?php
-// Exit if accessed directly.
+/**
+ * User registration ajax callback function.
+ *
+ * @package cup
+ */
+
+/**
+ * Exit if accessed directly.
+ */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -9,6 +17,9 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class User_Registration {
 
+	/**
+	 * User_Registration constructor.
+	 */
 	public function __construct() {
 		// User register ajax hook.
 		add_action( 'wp_ajax_nopriv_cup_user_register', array( $this, 'cup_user_register_callback' ) );
@@ -22,13 +33,13 @@ class User_Registration {
 		$response_arr = array();
 		if ( isset( $_POST['security'] ) &&
 			wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['security'] ) ), 'user_nonce' ) ) {
-			$first_name    = sanitize_text_field( $_POST['first_name'] );
-			$last_name     = sanitize_text_field( $_POST['last_name'] );
-			$user_name     = sanitize_text_field( $_POST['user_name'] );
-			$user_email    = sanitize_email( $_POST['user_email'] );
-			$user_password = $_POST['user_password'];
+			$first_name    = isset( $_POST['first_name'] ) ? sanitize_text_field( wp_unslash( $_POST['first_name'] ) ) : '';
+			$last_name     = isset( $_POST['last_name'] ) ? sanitize_text_field( wp_unslash( $_POST['last_name'] ) ) : '';
+			$user_name     = isset( $_POST['user_name'] ) ? sanitize_text_field( wp_unslash( $_POST['user_name'] ) ) : '';
+			$user_email    = isset( $_POST['user_email'] ) ? sanitize_email( wp_unslash( $_POST['user_email'] ) ) : '';
+			$user_password = isset( $_POST['user_password'] ) ? sanitize_text_field( wp_unslash( $_POST['user_password'] ) ) : '';
 
-			// Check if user already exists
+			// Check if user already exists.
 			if ( username_exists( $user_name ) ) {
 				$response_arr = array(
 					'status'  => false,
@@ -40,17 +51,17 @@ class User_Registration {
 					'message' => __( 'Email already exists.', 'cup' ),
 				);
 			} else {
-				// Create new user
+				// Create new user.
 				$user_id = wp_create_user( $user_name, $user_password, $user_email );
 
-				// Check if user was successfully created
+				// Check if user was successfully created.
 				if ( is_wp_error( $user_id ) ) {
 					$response_arr = array(
 						'status'  => false,
 						'message' => $user_id->get_error_message(),
 					);
 				} else {
-					// Set user meta for first and last name
+					// Set user meta for first and last name.
 					update_user_meta( $user_id, 'first_name', $first_name );
 					update_user_meta( $user_id, 'last_name', $last_name );
 
@@ -73,7 +84,9 @@ class User_Registration {
 	}
 
 	/**
-	 * Set custom user role
+	 * Set custom user role.
+	 *
+	 * @param int $user_id inserted user id.
 	 */
 	private function cup_set_user_role( $user_id ) {
 		$role = 'cup_user';

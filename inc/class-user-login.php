@@ -1,5 +1,13 @@
 <?php
-// Exit if accessed directly.
+/**
+ * User login ajax callback function.
+ *
+ * @package cup
+ */
+
+/**
+ * Exit if accessed directly.
+ */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -9,6 +17,9 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class User_Login {
 
+	/**
+	 * User_Login constructor.
+	 */
 	public function __construct() {
 		// User login ajax hook.
 		add_action( 'wp_ajax_nopriv_cup_user_login', array( $this, 'cup_user_login_callback' ) );
@@ -22,17 +33,17 @@ class User_Login {
 		$response_arr = array();
 		if ( isset( $_POST['security'] ) &&
 			wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['security'] ) ), 'user_nonce' ) ) {
-			$login_user = sanitize_text_field( $_POST['login_user'] );
-			$login_pass = sanitize_text_field( $_POST['login_pass'] );
+			$login_user = isset( $_POST['login_user'] ) ? sanitize_text_field( wp_unslash( $_POST['login_user'] ) ) : '';
+			$login_pass = isset( $_POST['login_pass'] ) ? sanitize_text_field( wp_unslash( $_POST['login_pass'] ) ) : '';
 
-			// Check if the provided value is an email or username
+			// Check if the provided value is an email or username.
 			if ( is_email( $login_user ) ) {
 				$user = get_user_by( 'email', $login_user );
 			} else {
 				$user = get_user_by( 'login', $login_user );
 			}
 
-			// Check if user exists
+			// Check if user exists.
 			if ( $user ) {
 				$credentials = array(
 					'user_login'    => $user->user_login,
@@ -40,25 +51,25 @@ class User_Login {
 					'remember'      => true,
 				);
 
-				// Authenticate the user
+				// Authenticate the user.
 				$user = wp_signon( $credentials, false );
 
 				if ( ! is_wp_error( $user ) ) {
-					// Login successful
+					// Login successful.
 					$response_arr = array(
 						'status'       => true,
 						'redirect_url' => home_url( '/welcome' ),
 						'message'      => __( 'Login successful..!', 'cup' ),
 					);
 				} else {
-					// Login failed due to incorrect password
+					// Login failed due to incorrect password.
 					$response_arr = array(
 						'status'  => false,
 						'message' => $user->get_error_message(),
 					);
 				}
 			} else {
-				// User does not exist
+				// User does not exist.
 				$response_arr = array(
 					'status'  => false,
 					'message' => __( 'User not exists.', 'cup' ),
